@@ -1,0 +1,4 @@
+POST localhost:8080/jshell/eval?startupScriptId=EMPTY
+Content-Type: application/json
+
+System.out.println("Hello");
