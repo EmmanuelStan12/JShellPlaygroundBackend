@@ -93,6 +93,8 @@ public class JShellSessionService {
                 sessionInfo.evalTimeoutValidationLeeway(), sessionInfo.sysOutCharLimit(),
                 config.dockerMaxRamMegaBytes(), config.dockerCPUsUsage(), config.dockerCPUSetCPUs(),
                 startupScriptsService.get(sessionInfo.startupScriptId()));
+
+
         jshellSessions.put(sessionInfo.id(), service);
         return service;
     }

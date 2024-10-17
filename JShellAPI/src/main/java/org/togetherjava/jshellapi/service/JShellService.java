@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
 
+import org.togetherjava.jshellapi.Config;
 import org.togetherjava.jshellapi.dto.*;
 import org.togetherjava.jshellapi.exceptions.DockerException;
 
@@ -29,6 +30,23 @@ public class JShellService {
     private boolean doingOperation;
     private final DockerService dockerService;
     private final int startupScriptSize;
+
+    public JShellService(
+            DockerService dockerService,
+            JShellSessionService sessionService,
+            SessionInfo sessionInfo,
+            StartupScriptId startupScriptId,
+            Config config
+    ) {
+        this.dockerService = dockerService;
+        this.sessionService = sessionService;
+        this.id = sessionInfo.id();
+        this.timeout = config.dockerConnectionTimeout();
+        this.renewable = sessionInfo.renewable();
+        this.evalTimeout = sessionInfo.evalTimeout();
+        this.evalTimeoutValidationLeeway = sessionInfo.evalTimeoutValidationLeeway();
+        this.lastTimeoutUpdate = Instant.now();
+    }
 
     public JShellService(DockerService dockerService, JShellSessionService sessionService,
             String id, long timeout, boolean renewable, long evalTimeout,
